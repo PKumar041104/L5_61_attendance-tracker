@@ -1,5 +1,7 @@
 # Lab 5: Static Code Analysis — Student Attendance Tracker
-
+## NAME: PRATHAM KUMAR
+## SRN No.: PES2UG24CS368
+## SECTION: F
 **Your file:** `attendance_tracker.py`
 **Python:** 3.10 or newer
 
