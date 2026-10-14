@@ -54,3 +54,155 @@ The code works, but only just. It has quality, style and security problems of th
 **Target:** aim for a Pylint score above 9.5 on your final file. A perfect 10.00/10 is very good.
 
 Be ready to explain the bugs you found and how you fixed them. You may be called on to present.
+
+## Static Code Analysis Results
+
+This section documents the static code analysis performed for Lab 5 on
+the Attendance Tracker program. The source code was reviewed and updated
+using **Pylint**, **Bandit**, and **Flake8**. Issues identified during
+the initial analysis were documented in `issues.md`, and the relevant
+corrections were applied to `attendance_tracker.py`.
+
+### Tools Used
+
+  -----------------------------------------------------------------------
+  Tool                    Purpose                 Final result
+  ----------------------- ----------------------- -----------------------
+  Pylint                  Checks Python code      **10.00/10**
+                          quality, common         
+                          programming errors, and 
+                          maintainability         
+
+  Bandit                  Checks Python code for  **No issues
+                          common security issues  identified**
+
+  Flake8                  Checks Python style and **No violations
+                          PEP 8-related           reported**
+                          violations              
+  -----------------------------------------------------------------------
+
+The final reports are saved in the `evidence/` directory. The
+`*_before.txt` files preserve the initial analysis results, while the
+`*_after.txt` files record the final checks after the fixes.
+`flake8_after.txt` is empty because Flake8 produced no violations in the
+final run.
+
+### Summary of Corrections
+
+The review covered security, functional correctness, and
+maintainability. Corrections included:
+
+-   Restoring TLS certificate verification and replacing insecure TLS
+    configuration with a secure default context.
+-   Reading the API key from an environment variable rather than
+    hard-coding it.
+-   Replacing shell-based archive creation with Python's `tarfile` API.
+-   Adding HTTP timeout and response-status handling.
+-   Correcting mutable default arguments and handling zero-record
+    calculations safely.
+-   Preventing duplicate attendance entries and validating date input.
+-   Mitigating CSV formula injection during export.
+-   Improving resource handling, encoding, naming, documentation, and
+    code style.
+
+The issue descriptions, classifications, relevant line references, and
+fix approaches are documented in `issues.md`. The learning and
+reflection responses are documented in `reflection.md`.
+
+### Repository Structure and Evidence
+
+The repository is organized as follows:
+
+``` text
+L5_61_attendance-tracker/
+├── attendance_tracker.py
+├── issues.md
+├── reflection.md
+├── README.md
+├── .gitignore
+└── evidence/
+    ├── Figure_01_Fresh_Repository_Clone.png
+    ├── Figure_2_Baseline_Execution_of_the_Original_Attendance_Tracker.png
+    ├── Figure_3_Initial_Pylint_Analysis_of_the_Original_Attendance_Tracker.png
+    ├── Figure_4_Initial_Bandit_Security_Analysis_of_the_Attendance_Tracker.png
+    ├── Figure_5_Initial_Flake8_Analysis_of_the_Original_Attendance_Tracker.png
+    ├── Figure_6_Final_Verification_of_the_Corrected_Attendance_Tracker_Using_Pylint_Bandit_and_Flake8.png
+    ├── pylint_before.txt
+    ├── bandit_before.txt
+    ├── flake8_before.txt
+    ├── pylint_after.txt
+    ├── bandit_after.txt
+    └── flake8_after.txt
+```
+
+**Evidence guide**
+
+  ------------------------------------------------------------------------------------------------------------------------------------------
+  Evidence                                                                                               What it supports
+  ------------------------------------------------------------------------------------------------------ -----------------------------------
+  `Figure_01_Fresh_Repository_Clone.png`                                                                 Shows the repository cloned locally
+                                                                                                         before the work.
+
+  `Figure_2_Baseline_Execution_of_the_Original_Attendance_Tracker.png`                                   Shows execution of the original
+                                                                                                         program before applying
+                                                                                                         corrections.
+
+  `Figure_3_Initial_Pylint_Analysis_of_the_Original_Attendance_Tracker.png`                              Shows the initial Pylint analysis.
+
+  `Figure_4_Initial_Bandit_Security_Analysis_of_the_Attendance_Tracker.png`                              Shows the initial Bandit security
+                                                                                                         analysis.
+
+  `Figure_5_Initial_Flake8_Analysis_of_the_Original_Attendance_Tracker.png`                              Shows the initial Flake8 analysis.
+
+  `Figure_6_Final_Verification_of_the_Corrected_Attendance_Tracker_Using_Pylint_Bandit_and_Flake8.png`   Shows final verification using the
+                                                                                                         three analysis tools.
+
+  `pylint_before.txt`, `bandit_before.txt`, `flake8_before.txt`                                          Text reports from the initial
+                                                                                                         analysis.
+
+  `pylint_after.txt`, `bandit_after.txt`, `flake8_after.txt`                                             Text reports from the final
+                                                                                                         analysis after corrections.
+  ------------------------------------------------------------------------------------------------------------------------------------------
+
+### How to Run the Program
+
+Run the program from the repository root using Python:
+
+``` bash
+python attendance_tracker.py
+```
+
+The program demonstrates attendance calculations, shortage checking,
+date-based register entries, CSV export, and a demonstration reminder
+job. The ERP synchronization step is intentionally skipped in the
+offline demonstration.
+
+### Re-run Static Analysis
+
+Install the tools if they are not already installed:
+
+``` bash
+python -m pip install pylint bandit flake8
+```
+
+Run each tool from the repository root:
+
+``` bash
+python -m pylint attendance_tracker.py
+python -m bandit -r attendance_tracker.py
+python -m flake8 attendance_tracker.py
+```
+
+To preserve fresh reports, redirect each command's output to the
+corresponding files in `evidence/`. For example, in Windows Command
+Prompt:
+
+``` bat
+python -m pylint attendance_tracker.py > evidence\pylint_after.txt 2>&1
+python -m bandit -r attendance_tracker.py > evidence\bandit_after.txt 2>&1
+python -m flake8 attendance_tracker.py > evidence\flake8_after.txt 2>&1
+```
+
+**Note:** The results above describe the final checks recorded for this
+submission. If the code changes, rerun all three tools and update the
+evidence reports so they match the submitted version.
